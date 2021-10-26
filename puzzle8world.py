@@ -7,11 +7,11 @@ class PuzzleEnvironment(SimulatedEnvironment):
         super(PuzzleEnvironment, self).__init__()
         if zero_at is None:
             if 0 in board[0]:
-                self._zero_at = board[0].index(0)
+                self._zero_at = [0, board[0].index(0)]
             elif 0 in board[1]:
-                self._zero_at = board[1].index(0)
+                self._zero_at = [1, board[1].index(0)]
             elif 0 in board[2]:
-                self._zero_at = board[2].index(0)
+                self._zero_at = [2, board[2].index(0)]
         self._board = board
         self._width = width
         self._agents_locations = {}  # maps agent id with its location
@@ -40,17 +40,19 @@ class PuzzleEnvironment(SimulatedEnvironment):
         at = self._zero_at
         brd = self._board
 
-        a, b = min(at, at - 1), max(at, at - 1)
+        a, b = min(at[1], at[1] - 1), max(at[1], at[1] - 1)  # a y b son indices (posicion)
 
-        brd[a], brd[b] = brd[b], brd[a]
+        brd[at[0]][a], brd[at[0]][b] = brd[at[0]][b], brd[at[0]][a]
+
+        update (zeroat)     # en cada metodo
 
     def _move_right(self):
         at = self._zero_at
         brd = self._board
 
-        a, b = min(at, at + 1), max(at, at + 1)
+        a, b = min(at[1], at[1] + 1), max(at[1], at[1] + 1)  # a y b son indices (posicion)
 
-        brd[a], brd[b] = brd[b], brd[a]
+        brd[at[0]][a], brd[at[0]][b] = brd[at[0]][b], brd[at[0]][a]
 
     def _move_up(self):
         at = self._zero_at
@@ -72,10 +74,10 @@ class PuzzleEnvironment(SimulatedEnvironment):
         if agent_id in self._agents:
             if action_name == "move":
                 if "direction" in params and params["direction"] == "left":
-                    self._move_left(agent_id)
+                    self._move_left()
                 elif "direction" in params and params["direction"] == "right":
-                    self._move_right(agent_id)
+                    self._move_right()
                 elif "direction" in params and params["direction"] == "up":
-                    self._move_up(agent_id)
+                    self._move_up()
                 elif "direction" in params and params["direction"] == "down":
-                    self._move_down(agent_id)
+                    self._move_down()

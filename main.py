@@ -13,6 +13,6 @@ if __name__ == '__main__':
     agent.print_state()
     agent.actuators["mover"].act(direction=MoveDirection.RIGHT)
     agent.print_state()
-    agent.actuators["mover"].act(direction=MoveDirection.DOWN)
+    agent.actuators["mover"].act(direction=MoveDirection.LEFT)
     agent.print_state()
 
