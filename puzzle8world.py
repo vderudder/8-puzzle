@@ -2,17 +2,18 @@ from environments import SimulatedEnvironment
 
 
 class PuzzleEnvironment(SimulatedEnvironment):
-    def __new__(cls, board, width, zero_at=None):
-        if zero_at is None:
-            zero_at = board.index(0)
 
-        return super().__new__(cls, board, width, zero_at)
-
-    def __init__(self, board, width, zero_at):
+    def __init__(self, board, width: int, zero_at):
         super(PuzzleEnvironment, self).__init__()
-        self._board = list(board)  # randomizar el tablero
+        if zero_at is None:
+            if 0 in board[0]:
+                self._zero_at = board[0].index(0)
+            elif 0 in board[1]:
+                self._zero_at = board[1].index(0)
+            elif 0 in board[2]:
+                self._zero_at = board[2].index(0)
+        self._board = board
         self._width = width
-        self._zero_at = zero_at
         self._agents_locations = {}  # maps agent id with its location
 
     def add(self, agent_id: int) -> None:
@@ -23,13 +24,14 @@ class PuzzleEnvironment(SimulatedEnvironment):
         super(PuzzleEnvironment, self).remove(agent_id)
         self._agents_locations.pop(agent_id, None)
 
-    def _show_board(self):
+    """def _show_board(self):
         response = {"board": self._board}
         return response
+        """
 
     def get_property(self, agent_id: int, property_name: str) -> dict:
         if agent_id in self._agents:
-            response = {"agent": agent_id, "board": self._show_board}
+            response = {"agent": agent_id, "board": self._board}
             return response
         else:
             return {}
@@ -46,7 +48,7 @@ class PuzzleEnvironment(SimulatedEnvironment):
         at = self._zero_at
         brd = self._board
 
-        a, b = min(at, at - 1), max(at, at + 1)
+        a, b = min(at, at + 1), max(at, at + 1)
 
         brd[a], brd[b] = brd[b], brd[a]
 
@@ -66,15 +68,14 @@ class PuzzleEnvironment(SimulatedEnvironment):
 
         brd[a], brd[b] = brd[b], brd[a]
 
-
-def take_action(self, agent_id: int, action_name: str, params: dict = {}) -> None:
-    if agent_id in self._agents:
-        if action_name == "move":
-            if "direction" in params and params["direction"] == "left":
-                self._move_left(agent_id)
-            elif "direction" in params and params["direction"] == "right":
-                self._move_right(agent_id)
-            elif "direction" in params and params["direction"] == "up":
-                self._move_up(agent_id)
-            elif "direction" in params and params["direction"] == "down":
-                self._move_down(agent_id)
+    def take_action(self, agent_id: int, action_name: str, params: dict = {}) -> None:
+        if agent_id in self._agents:
+            if action_name == "move":
+                if "direction" in params and params["direction"] == "left":
+                    self._move_left(agent_id)
+                elif "direction" in params and params["direction"] == "right":
+                    self._move_right(agent_id)
+                elif "direction" in params and params["direction"] == "up":
+                    self._move_up(agent_id)
+                elif "direction" in params and params["direction"] == "down":
+                    self._move_down(agent_id)

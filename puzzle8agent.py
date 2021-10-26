@@ -51,9 +51,10 @@ class PuzzleAgent(Agent):
 
         board = BoardSensor(env)
         board.agent = self
-        self.add_sensor("board_sensor", board)
+        self.add_sensor("board", board)
 
         # self.setup_function()
 
     def print_state(self):
-        print("Este es el tablero {}".format(self._sensors["board_sensor"].sense()))
+        print("Este es el tablero:")
+        print(self._sensors["board"].sense())
