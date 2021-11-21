@@ -57,4 +57,6 @@ class PuzzleAgent(Agent):
 
     def print_state(self):
         print("Este es el tablero:")
-        print(self._sensors["board"].sense())
+        print(self._sensors["board"].sense()[0])
+        print(self._sensors["board"].sense()[1])
+        print(self._sensors["board"].sense()[2])
