@@ -3,16 +3,23 @@ from puzzle8agent import PuzzleAgent, MoveDirection
 
 
 if __name__ == '__main__':
-    board = [[1, 2, 5], [4, 0, 6], [7, 3, 8]]
+    board = [[1, 2, 3], [4, 0, 5], [6, 7, 8]]
+    #board = "[[1, 2, 3], [4, 0, 5], [6, 7, 8]]"
+
     env = PuzzleEnvironment(board, 3)
 
     agent = PuzzleAgent(env)
-    print("id del agente: {}".format(agent.id))
 
     agent.print_state()
     agent.actuators["mover"].act(direction=MoveDirection.RIGHT)
     agent.print_state()
-    agent.actuators["mover"].act(direction=MoveDirection.RIGHT)
+    agent.actuators["mover"].act(direction=MoveDirection.DOWN)
+    agent.print_state()
+    agent.actuators["mover"].act(direction=MoveDirection.LEFT)
+    agent.print_state()
+    agent.actuators["mover"].act(direction=MoveDirection.LEFT)
+    agent.print_state()
+    agent.actuators["mover"].act(direction=MoveDirection.LEFT)
     agent.print_state()
     agent.actuators["mover"].act(direction=MoveDirection.UP)
     agent.print_state()
