@@ -293,15 +293,6 @@ class TestUpdateZero:
 
         assert expected == actual
 
-    def test_update_zero_10(self):
-        board = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
-        expected = Exception("El tablero no tiene ficha vacia")
-
-        actual = update_zero(board)
-
-        assert expected == actual
-
-
 
 moveLeft = TestMoveLeft()
 
@@ -346,5 +337,3 @@ update.test_update_zero_6()
 update.test_update_zero_7()
 update.test_update_zero_8()
 update.test_update_zero_9()
-update.test_update_zero_10()
-

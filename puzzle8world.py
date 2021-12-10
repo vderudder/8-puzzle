@@ -1,6 +1,4 @@
 from environments import SimulatedEnvironment
-from puzzle8agent import PuzzleAgent
-
 
 def update_zero(brd):
     if 0 in brd[0]:
